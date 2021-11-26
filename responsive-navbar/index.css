@@ -18,6 +18,8 @@ body {
   gap: var(--gap, 1rem);
 }
 
+/* This is present only for the assistive technologies. 
+Can be used for Icons if you want them to be read out like Menu */
 .sr-only {
   position: absolute;
   width: 1px;
