@@ -1,0 +1,134 @@
+:root {
+  --bg-desktop: url("./assets/background-home-desktop.jpeg");
+  --bg-tablet: url("./assets/background-home-tablet.jpeg");
+  --bg-mobile: url("./assets/background-home-mobile.jpeg");
+}
+
+body {
+  font-family: "Fira Code", monospace;
+  background-color: black;
+  background-image: var(--bg-desktop);
+  overflow-x: hidden;
+}
+
+/* Utility classes */
+.flex {
+  display: flex;
+  /* --gap doesnt exists, so it fallbacks to 1rem */
+  gap: var(--gap, 1rem);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bg-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+/* Header */
+.primary-header {
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Main Navigation */
+.primary-navigation {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: hsl(0 0% 0% / 0.5);
+}
+
+.primary-navigation[data-visible="true"] {
+  transform: translateX(0%);
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+@supports (backdrop-filter: blur(1rem)) {
+  .primary-navigation {
+    background: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(1rem);
+  }
+}
+
+.primary-navigation a {
+  text-decoration: none;
+  color: white;
+}
+
+.primary-navigation a > span[aria-hidden="true"] {
+  font-weight: bold;
+  margin-inline-end: 0.75rem;
+}
+
+/* This targets mobile resolution */
+@media (max-width: 35em) {
+  .primary-navigation {
+    --gap: 2em;
+    position: fixed;
+    inset: 0 0 0 30%;
+    z-index: 1000;
+    flex-direction: column;
+    /* the padding from top will be either 30vh or 4rem whichever is less
+    This is to lock it if the height is too much of the element */
+    padding: min(30vh, 4rem) 2rem;
+    transform: translateX(100%);
+    transition: transform 350ms ease-in;
+  }
+
+  body {
+    background: var(--bg-mobile);
+  }
+
+  .mobile-nav-toggle {
+    position: absolute;
+    width: 3rem;
+    aspect-ratio: 1;
+    top: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    background-image: url("./assets/icon-hamburger.svg");
+    background-size: initial;
+    background-color: transparent;
+    border: 0;
+    display: block;
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] {
+    background-image: url("./assets/icon-close.svg");
+  }
+}
+
+/* Tablet resolutions */
+@media (min-width: 35em) and (max-width: 55em) {
+  .primary-navigation a > span[aria-hidden="true"] {
+    display: none;
+  }
+  body {
+    background-image: var(--bg-tablet);
+  }
+}
+
+/* This targets both Tablet and Desktop */
+@media (min-width: 35em) {
+  .primary-navigation {
+    --gap: min(20px, 4vw);
+    padding-inline: clamp(3rem, 3vw, 5rem);
+    padding-block: 2rem;
+  }
+}
