@@ -4,7 +4,7 @@ This is a responsive nav bar only which looks similar to the one [this](https://
 
 ## Problem Statement
 
-- Build a responsive navbar as it appears in this frontend mentor challenge _https://www.frontendmentor.io/challenges/space-tourism-multipage-website-gRWj1URZ3_
+- Build a responsive navbar as it appears in this frontend mentor challenge mentioned above.
 
 - The goal is to match responsive designs provided and in process learn some modern CSS
 
