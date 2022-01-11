@@ -8,29 +8,38 @@ type Props = {
   loading: boolean;
 };
 
-// Try once without windowing, with the Contact component, without using a big store
-// it might speed up the rendering
+const Skeleton = ({ ...props }) => {
+  return <div {...props}></div>;
+};
+
 const ContactList = ({ users, loading }: Props) => {
-  const Row = (props: any) => {
-    const item = users[props.index];
-
-    return <Contact name={item.name} />;
-  };
-
   return (
     <ul>
-      {loading
-        ? "Loading..."
-        : users?.map((user) => (
-            <FixedSizeList
-              itemCount={users.length}
-              itemSize={10}
-              height={50}
-              width="100%"
-            >
-              {Row}
-            </FixedSizeList>
-          ))}
+      {loading ? (
+        "Loading..."
+      ) : (
+        <FixedSizeList
+          itemCount={users.length}
+          itemSize={20}
+          height={500}
+          width="100%"
+          useIsScrolling={true}
+        >
+          {({ index, style, isScrolling }) => {
+            return (
+              <div style={style}>
+                {isScrolling ? (
+                  <Skeleton style={style} />
+                ) : (
+                  <div style={style}>
+                    <Contact name={users[index].name} />
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        </FixedSizeList>
+      )}
     </ul>
   );
 };
